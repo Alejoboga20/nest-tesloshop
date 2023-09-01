@@ -24,9 +24,21 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Project created to learn [Nest](https://github.com/nestjs/nest) with TypeORM and PostgreSQL.
 
 ## Installation
+
+Fill the `.env` file with the following
+
+```
+DB_NAME=
+DB_PASSWORD=
+```
+
+1. Create database with docker-compose
+```
+docker-compose up -d
+```
 
 ```bash
 $ pnpm install
@@ -62,12 +74,3 @@ $ pnpm run test:cov
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
