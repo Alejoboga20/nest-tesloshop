@@ -28,11 +28,14 @@ Project created to learn [Nest](https://github.com/nestjs/nest) with TypeORM and
 
 ## Installation
 
-Fill the `.env` file with the following
+Fill the `.env` file with the following. You can use the `.env.template` as a template.
 
 ```
 DB_NAME=
+DB_USERNAME=
 DB_PASSWORD=
+DB_HOST=
+DB_PORT=
 ```
 
 1. Create database with docker-compose
