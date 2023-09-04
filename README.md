@@ -43,9 +43,21 @@ DB_PORT=
 docker-compose up -d
 ```
 
+2. Install dependencies
 ```bash
 $ pnpm install
 ```
+
+3. Start application
+```bash
+$ pnpm run start:dev
+```
+
+4. Run seed for database
+```bash
+GET /api/v1/seed
+```
+
 
 ## Running the app
 
