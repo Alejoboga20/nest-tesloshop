@@ -8,6 +8,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { validate as isUUID } from 'uuid';
+
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
@@ -119,7 +120,6 @@ export class ProductsService {
         product.images = images.map((image) =>
           this.productImageRepository.create({ url: image }),
         );
-      } else {
       }
 
       await queryRunner.manager.save(product);
@@ -145,5 +145,15 @@ export class ProductsService {
     if (error.code === '23505') throw new BadRequestException(error.detail);
 
     throw new InternalServerErrorException('Something went wrong');
+  }
+
+  async deleteAllProduct() {
+    const query = this.productRepository.createQueryBuilder('product');
+
+    try {
+      return await query.delete().where({}).execute();
+    } catch (error) {
+      this.handleExceptions(error);
+    }
   }
 }
