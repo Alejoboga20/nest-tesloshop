@@ -11,4 +11,6 @@ export const fileFilter = (
 
   if (!allowedExtensions.includes(fileExtension))
     return callback(new Error('Invalid file type'), false);
+
+  callback(null, true);
 };
