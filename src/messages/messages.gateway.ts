@@ -40,6 +40,20 @@ export class MessagesGateway
 
   @SubscribeMessage('message-from-client')
   handleMessageFromClient(client: Socket, payload: NewMessageDto) {
-    console.log({ id: client.id, payload });
+    // To emit to the same client
+    /* client.emit('message-from-server', {
+      fullName: 'alejo',
+      message: payload.message,
+    }); */
+    // To emit to every one but the same client
+    /* client.broadcast.emit('message-from-server', {
+      fullName: 'alejo',
+      message: payload.message,
+    }); */
+    // to emit to every one
+    this.server.emit('message-from-server', {
+      fullName: 'alejo',
+      message: payload.message,
+    });
   }
 }
