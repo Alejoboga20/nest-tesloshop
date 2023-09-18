@@ -26,20 +26,17 @@ export class MessagesGateway
     private readonly jwtService: JwtService,
   ) {}
 
-  handleConnection(client: Socket) {
+  async handleConnection(client: Socket) {
     const token = client.handshake.headers.authentication as string;
     let payload: JwtPayload;
 
     try {
       payload = this.jwtService.verify(token);
+      await this.messagesService.registerClient(client, payload.id);
     } catch (error) {
       client.disconnect();
       return;
     }
-
-    console.log({ payload });
-
-    this.messagesService.registerClient(client);
 
     this.server.emit(
       Events.CLIENTS_UPDATED,
@@ -58,6 +55,7 @@ export class MessagesGateway
 
   @SubscribeMessage('message-from-client')
   handleMessageFromClient(client: Socket, payload: NewMessageDto) {
+    console.log('here');
     // To emit to the same client
     /* client.emit('message-from-server', {
       fullName: 'alejo',
@@ -70,7 +68,7 @@ export class MessagesGateway
     }); */
     // to emit to every one
     this.server.emit('message-from-server', {
-      fullName: 'alejo',
+      fullName: this.messagesService.getUserFullName(client.id),
       message: payload.message,
     });
   }
