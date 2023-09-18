@@ -13,10 +13,12 @@ export class MessagesGateway
   constructor(private readonly messagesService: MessagesService) {}
 
   handleConnection(client: Socket) {
-    console.log('client connected', client);
+    this.messagesService.registerClient(client);
+    console.log(this.messagesService.getConnectedClients());
   }
 
   handleDisconnect(client: Socket) {
-    console.log('client disconnected', client);
+    this.messagesService.removeClient(client.id);
+    console.log(this.messagesService.getConnectedClients());
   }
 }
