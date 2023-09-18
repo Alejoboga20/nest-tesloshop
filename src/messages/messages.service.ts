@@ -27,6 +27,8 @@ export class MessagesService {
     if (!user) throw new Error('User not found');
     if (!user.isActive) throw new Error('User is not active');
 
+    this.checkUserConnection(user.id);
+
     this.connectedClients[client.id] = {
       socket: client,
       user,
@@ -43,5 +45,15 @@ export class MessagesService {
 
   getUserFullName(clientId: string) {
     return this.connectedClients[clientId].user.fullName;
+  }
+
+  private checkUserConnection(userId: string) {
+    for (const clientId of Object.keys(this.connectedClients)) {
+      const connectedClient = this.connectedClients[clientId];
+      if (connectedClient.user.id === userId) {
+        connectedClient.socket.disconnect();
+        break;
+      }
+    }
   }
 }
